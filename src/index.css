@@ -85,13 +85,13 @@
   border-color: #3c8379;
 } */
 
-#challenges {
+/* #challenges {
   max-width: 50rem;
   margin: 3rem auto;
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
-}
+} */
 
 .challenge {
   width: 22rem;
