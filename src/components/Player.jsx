@@ -1,6 +1,29 @@
 import { useRef, useState } from "react";
 import { styled } from "styled-components";
 
+export default function Player() {
+  const playerName = useRef();
+  const [enteredPlayerName, setEnteredPlayerName] = useState(null);
+
+  function handleClick() {
+    //All refs made with useRef will always have be an object with a current property
+    setEnteredPlayerName(playerName.current.value);
+    // This is not declarative code. This is imperative. This is sorta okay because this input isn't
+    // really connected to any state variables or components heavily dependent on state.
+    playerName.current.value = "";
+  }
+
+  return (
+    <PlayerSection>
+      <h2>Welcome {enteredPlayerName ?? "unknown entity"}</h2>
+      <p>
+        <input ref={playerName} type="text" />
+        <button onClick={handleClick}>Set Name</button>
+      </p>
+    </PlayerSection>
+  );
+}
+
 const PlayerSection = styled.section`
   text-align: center;
 
@@ -40,29 +63,6 @@ const PlayerSection = styled.section`
     justify-content: center;
   }
 `;
-
-export default function Player() {
-  const playerName = useRef();
-  const [enteredPlayerName, setEnteredPlayerName] = useState(null);
-
-  function handleClick() {
-    //All refs made with useRef will always have be an object with a current property
-    setEnteredPlayerName(playerName.current.value);
-    // This is not declarative code. This is imperative. This is sorta okay because this input isn't
-    // really connected to any state variables or components heavily dependent on state.
-    playerName.current.value = "";
-  }
-
-  return (
-    <PlayerSection>
-      <h2>Welcome {enteredPlayerName ?? "unknown entity"}</h2>
-      <p>
-        <input ref={playerName} type="text" />
-        <button onClick={handleClick}>Set Name</button>
-      </p>
-    </PlayerSection>
-  );
-}
 
 /*
 Notes:

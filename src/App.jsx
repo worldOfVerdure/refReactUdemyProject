@@ -1,5 +1,23 @@
 import { createGlobalStyle, styled } from "styled-components";
 import Player from "./components/Player.jsx";
+import TimerChallenge from "./components/TimerChallenge.jsx";
+
+function App() {
+  return (
+    <>
+      <GlobalStyles />
+      <Player />
+      <Challenges>
+        <TimerChallenge title="Easy" targetTime={1} />
+        <TimerChallenge title="Not Easy" targetTime={5} />
+        <TimerChallenge title="Getting Tough" targetTime={10} />
+        <TimerChallenge title="Pros Only" targetTime={15} />
+      </Challenges>
+    </>
+  );
+}
+
+export default App;
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -55,15 +73,3 @@ const Challenges = styled.div`
   margin: 3rem auto;
   max-width: 50rem;
 `;
-
-function App() {
-  return (
-    <>
-      <GlobalStyles />
-      <Player />
-      <Challenges></Challenges>
-    </>
-  );
-}
-
-export default App;
