@@ -48,6 +48,9 @@ export default function Player() {
   function handleClick() {
     //All refs made with useRef will always have be an object with a current property
     setEnteredPlayerName(playerName.current.value);
+    // This is not declarative code. This is imperative. This is sorta okay because this input isn't
+    // really connected to any state variables or components heavily dependent on state.
+    playerName.current.value = "";
   }
 
   return (
@@ -60,3 +63,10 @@ export default function Player() {
     </PlayerSection>
   );
 }
+
+/*
+Notes:
+Refs are not connected on a first render as well as ref's do not update state and tigger a rerender.
+Conversely, state variables should not be used for "behind the scenes" values that have no direct UI
+imapact.
+*/
