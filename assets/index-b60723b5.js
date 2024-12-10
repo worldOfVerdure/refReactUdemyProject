@@ -85,7 +85,7 @@ Error generating stack: `+a.message+`
     display: flex;
     justify-content: center;
   }
-`;function Tm(){const t=Ta.useRef(),[l,a]=Ta.useState(null);function e(){a(t.current.value)}return Lt.jsxs(Am,{children:[Lt.jsxs("h2",{children:["Welcome ",l??"unknown entity"]}),Lt.jsxs("p",{children:[Lt.jsx("input",{ref:t,type:"text"}),Lt.jsx("button",{onClick:e,children:"Set Name"})]})]})}const zm=Em`
+`;function Tm(){const t=Ta.useRef(),[l,a]=Ta.useState(null);function e(){a(t.current.value),t.current.value=""}return Lt.jsxs(Am,{children:[Lt.jsxs("h2",{children:["Welcome ",l??"unknown entity"]}),Lt.jsxs("p",{children:[Lt.jsx("input",{ref:t,type:"text"}),Lt.jsx("button",{onClick:e,children:"Set Name"})]})]})}const zm=Em`
   * {
   box-sizing: border-box;
 }
