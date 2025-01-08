@@ -1,15 +1,47 @@
 import { keyframes, styled } from "styled-components";
+import ResultModal from "./ResultModal.jsx";
+import { useRef, useState } from "react";
 
-export default function TimerChallenge({title, targetTime}) {
+export default function TimerChallenge( {title, targetTime}) {
+  /* Using refs causes a component specific instance of the timer. When timer was placed outside the
+    function, all instances of TimerChallenge were sharing title. Furthermore, unlike variables
+    inside the component function, ref is recalled between state changes.
+  */
+  const timer = useRef();
+
+  const [timerExpired, setTimerExpired] = useState(false);
+  const [timerStarted, setTimerStarted] = useState(false);
+
+  function handleStart() {
+    setTimerStarted(true);
+    timer.current = setTimeout(() => {
+      setTimerExpired(true);
+    }, targetTime * 1000);
+  }
+
+  function handleStop() {
+    clearTimeout(timer.current);
+  }
+
   return (
-    <TimerSection>
-      <h2>{title}</h2>
-      <p>{targetTime} second{targetTime === 1 ? '' : 's'}</p>
-      <p>
-        <button>Start Challenge</button>
-      </p>
-      <p $isActive={false}>Time is running... / Timer inactive</p>
-    </TimerSection>
+    <>
+      {timerExpired && <ResultModal targetTime={targetTime} result="lost" /> }
+      <TimerSection>
+        <h2>{title}</h2>
+        <p>{targetTime} second{targetTime === 1 ? '' : 's'}</p>
+        <p>
+          <button
+            onClick={timerStarted ? handleStop : handleStart}
+            type="button"
+          >
+            {timerStarted ? "Stop" : "Start"} Challenge
+          </button>
+        </p>
+        <p $isActive={timerStarted} >
+          {timerStarted ? "Time is running..." : "Timer inactive"}
+        </p>
+      </TimerSection>
+    </>
   );
 }
 
@@ -70,6 +102,6 @@ const TimerSection = styled.section`
   }
 
   & p:nth-of-type(3) {
-    animation: ${({$isActive}) => $isActive ? `${flash} 1s infinite` : "none"};
+    animation: ${props => props.$isActive ? `${flash} 1s infinite` : "none"};
   }
 `;
